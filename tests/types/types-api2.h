@@ -503,6 +503,66 @@ struct Table1Type TableA_get_f5_impl(struct TableAType *);
 struct BytesOptType TableA_get_f6_impl(struct TableAType *);
 struct UnionAType TableA_get_f7_impl(struct TableAType *);
 uint8_t TableA_get_f8_impl(struct TableAType *);
+struct Uint8Type;
+struct Uint8VTable;
+struct Uint8VTable *GetUint8VTable(void);
+struct Uint8Type make_Uint8(mol2_cursor_t *cur);
+uint32_t Uint8_len_impl(struct Uint8Type *);
+uint8_t Uint8_get_impl(struct Uint8Type *, uint32_t, bool *);
+struct Int8Type;
+struct Int8VTable;
+struct Int8VTable *GetInt8VTable(void);
+struct Int8Type make_Int8(mol2_cursor_t *cur);
+uint32_t Int8_len_impl(struct Int8Type *);
+uint8_t Int8_get_impl(struct Int8Type *, uint32_t, bool *);
+struct Uint16Type;
+struct Uint16VTable;
+struct Uint16VTable *GetUint16VTable(void);
+struct Uint16Type make_Uint16(mol2_cursor_t *cur);
+uint32_t Uint16_len_impl(struct Uint16Type *);
+uint8_t Uint16_get_impl(struct Uint16Type *, uint32_t, bool *);
+struct Int16Type;
+struct Int16VTable;
+struct Int16VTable *GetInt16VTable(void);
+struct Int16Type make_Int16(mol2_cursor_t *cur);
+uint32_t Int16_len_impl(struct Int16Type *);
+uint8_t Int16_get_impl(struct Int16Type *, uint32_t, bool *);
+struct Uint32Type;
+struct Uint32VTable;
+struct Uint32VTable *GetUint32VTable(void);
+struct Uint32Type make_Uint32(mol2_cursor_t *cur);
+uint32_t Uint32_len_impl(struct Uint32Type *);
+uint8_t Uint32_get_impl(struct Uint32Type *, uint32_t, bool *);
+struct Int32Type;
+struct Int32VTable;
+struct Int32VTable *GetInt32VTable(void);
+struct Int32Type make_Int32(mol2_cursor_t *cur);
+uint32_t Int32_len_impl(struct Int32Type *);
+uint8_t Int32_get_impl(struct Int32Type *, uint32_t, bool *);
+struct Uint64Type;
+struct Uint64VTable;
+struct Uint64VTable *GetUint64VTable(void);
+struct Uint64Type make_Uint64(mol2_cursor_t *cur);
+uint32_t Uint64_len_impl(struct Uint64Type *);
+uint8_t Uint64_get_impl(struct Uint64Type *, uint32_t, bool *);
+struct Int64Type;
+struct Int64VTable;
+struct Int64VTable *GetInt64VTable(void);
+struct Int64Type make_Int64(mol2_cursor_t *cur);
+uint32_t Int64_len_impl(struct Int64Type *);
+uint8_t Int64_get_impl(struct Int64Type *, uint32_t, bool *);
+struct TableBType;
+struct TableBVTable;
+struct TableBVTable *GetTableBVTable(void);
+struct TableBType make_TableB(mol2_cursor_t *cur);
+uint8_t TableB_get_f1_impl(struct TableBType *);
+int8_t TableB_get_f2_impl(struct TableBType *);
+uint16_t TableB_get_f3_impl(struct TableBType *);
+int16_t TableB_get_f4_impl(struct TableBType *);
+uint32_t TableB_get_f5_impl(struct TableBType *);
+int32_t TableB_get_f6_impl(struct TableBType *);
+uint64_t TableB_get_f7_impl(struct TableBType *);
+int64_t TableB_get_f8_impl(struct TableBType *);
 struct AllInOneType;
 struct AllInOneVTable;
 struct AllInOneVTable *GetAllInOneVTable(void);
@@ -581,6 +641,7 @@ struct WordsOptVecType AllInOne_get_f70_impl(struct AllInOneType *);
 struct BytesOptVecType AllInOne_get_f71_impl(struct AllInOneType *);
 struct UnionAType AllInOne_get_f72_impl(struct AllInOneType *);
 struct TableAType AllInOne_get_f73_impl(struct AllInOneType *);
+struct TableBType AllInOne_get_f74_impl(struct AllInOneType *);
 
 // ----definition-----------------
 typedef struct Byte2VTable {
@@ -1286,6 +1347,93 @@ typedef struct TableAType {
   TableAVTable *t;
 } TableAType;
 
+typedef struct Uint8VTable {
+  uint32_t (*len)(struct Uint8Type *);
+  uint8_t (*get)(struct Uint8Type *, uint32_t, bool *);
+} Uint8VTable;
+typedef struct Uint8Type {
+  mol2_cursor_t cur;
+  Uint8VTable *t;
+} Uint8Type;
+
+typedef struct Int8VTable {
+  uint32_t (*len)(struct Int8Type *);
+  uint8_t (*get)(struct Int8Type *, uint32_t, bool *);
+} Int8VTable;
+typedef struct Int8Type {
+  mol2_cursor_t cur;
+  Int8VTable *t;
+} Int8Type;
+
+typedef struct Uint16VTable {
+  uint32_t (*len)(struct Uint16Type *);
+  uint8_t (*get)(struct Uint16Type *, uint32_t, bool *);
+} Uint16VTable;
+typedef struct Uint16Type {
+  mol2_cursor_t cur;
+  Uint16VTable *t;
+} Uint16Type;
+
+typedef struct Int16VTable {
+  uint32_t (*len)(struct Int16Type *);
+  uint8_t (*get)(struct Int16Type *, uint32_t, bool *);
+} Int16VTable;
+typedef struct Int16Type {
+  mol2_cursor_t cur;
+  Int16VTable *t;
+} Int16Type;
+
+typedef struct Uint32VTable {
+  uint32_t (*len)(struct Uint32Type *);
+  uint8_t (*get)(struct Uint32Type *, uint32_t, bool *);
+} Uint32VTable;
+typedef struct Uint32Type {
+  mol2_cursor_t cur;
+  Uint32VTable *t;
+} Uint32Type;
+
+typedef struct Int32VTable {
+  uint32_t (*len)(struct Int32Type *);
+  uint8_t (*get)(struct Int32Type *, uint32_t, bool *);
+} Int32VTable;
+typedef struct Int32Type {
+  mol2_cursor_t cur;
+  Int32VTable *t;
+} Int32Type;
+
+typedef struct Uint64VTable {
+  uint32_t (*len)(struct Uint64Type *);
+  uint8_t (*get)(struct Uint64Type *, uint32_t, bool *);
+} Uint64VTable;
+typedef struct Uint64Type {
+  mol2_cursor_t cur;
+  Uint64VTable *t;
+} Uint64Type;
+
+typedef struct Int64VTable {
+  uint32_t (*len)(struct Int64Type *);
+  uint8_t (*get)(struct Int64Type *, uint32_t, bool *);
+} Int64VTable;
+typedef struct Int64Type {
+  mol2_cursor_t cur;
+  Int64VTable *t;
+} Int64Type;
+
+typedef struct TableBVTable {
+  uint8_t (*f1)(struct TableBType *);
+  int8_t (*f2)(struct TableBType *);
+  uint16_t (*f3)(struct TableBType *);
+  int16_t (*f4)(struct TableBType *);
+  uint32_t (*f5)(struct TableBType *);
+  int32_t (*f6)(struct TableBType *);
+  uint64_t (*f7)(struct TableBType *);
+  int64_t (*f8)(struct TableBType *);
+} TableBVTable;
+typedef struct TableBType {
+  mol2_cursor_t cur;
+  TableBVTable *t;
+} TableBType;
+
 typedef struct AllInOneVTable {
   uint8_t (*f0)(struct AllInOneType *);
   mol2_cursor_t (*f1)(struct AllInOneType *);
@@ -1361,6 +1509,7 @@ typedef struct AllInOneVTable {
   struct BytesOptVecType (*f71)(struct AllInOneType *);
   struct UnionAType (*f72)(struct AllInOneType *);
   struct TableAType (*f73)(struct AllInOneType *);
+  struct TableBType (*f74)(struct AllInOneType *);
 } AllInOneVTable;
 typedef struct AllInOneType {
   mol2_cursor_t cur;
@@ -3643,6 +3792,290 @@ uint8_t TableA_get_f8_impl(TableAType *this) {
   ret = convert_to_Uint8(&ret2);
   return ret;
 }
+struct Uint8Type make_Uint8(mol2_cursor_t *cur) {
+  Uint8Type ret;
+  ret.cur = *cur;
+  ret.t = GetUint8VTable();
+  return ret;
+}
+struct Uint8VTable *GetUint8VTable(void) {
+  static Uint8VTable s_vtable;
+  static int inited = 0;
+  if (inited) return &s_vtable;
+  s_vtable.len = Uint8_len_impl;
+  s_vtable.get = Uint8_get_impl;
+  return &s_vtable;
+}
+uint32_t Uint8_len_impl(Uint8Type *this) { return 1; }
+uint8_t Uint8_get_impl(Uint8Type *this, uint32_t index, bool *existing) {
+  uint8_t ret = {0};
+  mol2_cursor_res_t res = mol2_slice_by_offset2(&this->cur, 1 * index, 1);
+  if (res.errno != MOL2_OK) {
+    *existing = false;
+    return ret;
+  } else {
+    *existing = true;
+  }
+  ret = convert_to_Uint8(&res.cur);
+  return ret;
+}
+struct Int8Type make_Int8(mol2_cursor_t *cur) {
+  Int8Type ret;
+  ret.cur = *cur;
+  ret.t = GetInt8VTable();
+  return ret;
+}
+struct Int8VTable *GetInt8VTable(void) {
+  static Int8VTable s_vtable;
+  static int inited = 0;
+  if (inited) return &s_vtable;
+  s_vtable.len = Int8_len_impl;
+  s_vtable.get = Int8_get_impl;
+  return &s_vtable;
+}
+uint32_t Int8_len_impl(Int8Type *this) { return 1; }
+uint8_t Int8_get_impl(Int8Type *this, uint32_t index, bool *existing) {
+  uint8_t ret = {0};
+  mol2_cursor_res_t res = mol2_slice_by_offset2(&this->cur, 1 * index, 1);
+  if (res.errno != MOL2_OK) {
+    *existing = false;
+    return ret;
+  } else {
+    *existing = true;
+  }
+  ret = convert_to_Uint8(&res.cur);
+  return ret;
+}
+struct Uint16Type make_Uint16(mol2_cursor_t *cur) {
+  Uint16Type ret;
+  ret.cur = *cur;
+  ret.t = GetUint16VTable();
+  return ret;
+}
+struct Uint16VTable *GetUint16VTable(void) {
+  static Uint16VTable s_vtable;
+  static int inited = 0;
+  if (inited) return &s_vtable;
+  s_vtable.len = Uint16_len_impl;
+  s_vtable.get = Uint16_get_impl;
+  return &s_vtable;
+}
+uint32_t Uint16_len_impl(Uint16Type *this) { return 2; }
+uint8_t Uint16_get_impl(Uint16Type *this, uint32_t index, bool *existing) {
+  uint8_t ret = {0};
+  mol2_cursor_res_t res = mol2_slice_by_offset2(&this->cur, 1 * index, 1);
+  if (res.errno != MOL2_OK) {
+    *existing = false;
+    return ret;
+  } else {
+    *existing = true;
+  }
+  ret = convert_to_Uint8(&res.cur);
+  return ret;
+}
+struct Int16Type make_Int16(mol2_cursor_t *cur) {
+  Int16Type ret;
+  ret.cur = *cur;
+  ret.t = GetInt16VTable();
+  return ret;
+}
+struct Int16VTable *GetInt16VTable(void) {
+  static Int16VTable s_vtable;
+  static int inited = 0;
+  if (inited) return &s_vtable;
+  s_vtable.len = Int16_len_impl;
+  s_vtable.get = Int16_get_impl;
+  return &s_vtable;
+}
+uint32_t Int16_len_impl(Int16Type *this) { return 2; }
+uint8_t Int16_get_impl(Int16Type *this, uint32_t index, bool *existing) {
+  uint8_t ret = {0};
+  mol2_cursor_res_t res = mol2_slice_by_offset2(&this->cur, 1 * index, 1);
+  if (res.errno != MOL2_OK) {
+    *existing = false;
+    return ret;
+  } else {
+    *existing = true;
+  }
+  ret = convert_to_Uint8(&res.cur);
+  return ret;
+}
+struct Uint32Type make_Uint32(mol2_cursor_t *cur) {
+  Uint32Type ret;
+  ret.cur = *cur;
+  ret.t = GetUint32VTable();
+  return ret;
+}
+struct Uint32VTable *GetUint32VTable(void) {
+  static Uint32VTable s_vtable;
+  static int inited = 0;
+  if (inited) return &s_vtable;
+  s_vtable.len = Uint32_len_impl;
+  s_vtable.get = Uint32_get_impl;
+  return &s_vtable;
+}
+uint32_t Uint32_len_impl(Uint32Type *this) { return 4; }
+uint8_t Uint32_get_impl(Uint32Type *this, uint32_t index, bool *existing) {
+  uint8_t ret = {0};
+  mol2_cursor_res_t res = mol2_slice_by_offset2(&this->cur, 1 * index, 1);
+  if (res.errno != MOL2_OK) {
+    *existing = false;
+    return ret;
+  } else {
+    *existing = true;
+  }
+  ret = convert_to_Uint8(&res.cur);
+  return ret;
+}
+struct Int32Type make_Int32(mol2_cursor_t *cur) {
+  Int32Type ret;
+  ret.cur = *cur;
+  ret.t = GetInt32VTable();
+  return ret;
+}
+struct Int32VTable *GetInt32VTable(void) {
+  static Int32VTable s_vtable;
+  static int inited = 0;
+  if (inited) return &s_vtable;
+  s_vtable.len = Int32_len_impl;
+  s_vtable.get = Int32_get_impl;
+  return &s_vtable;
+}
+uint32_t Int32_len_impl(Int32Type *this) { return 4; }
+uint8_t Int32_get_impl(Int32Type *this, uint32_t index, bool *existing) {
+  uint8_t ret = {0};
+  mol2_cursor_res_t res = mol2_slice_by_offset2(&this->cur, 1 * index, 1);
+  if (res.errno != MOL2_OK) {
+    *existing = false;
+    return ret;
+  } else {
+    *existing = true;
+  }
+  ret = convert_to_Uint8(&res.cur);
+  return ret;
+}
+struct Uint64Type make_Uint64(mol2_cursor_t *cur) {
+  Uint64Type ret;
+  ret.cur = *cur;
+  ret.t = GetUint64VTable();
+  return ret;
+}
+struct Uint64VTable *GetUint64VTable(void) {
+  static Uint64VTable s_vtable;
+  static int inited = 0;
+  if (inited) return &s_vtable;
+  s_vtable.len = Uint64_len_impl;
+  s_vtable.get = Uint64_get_impl;
+  return &s_vtable;
+}
+uint32_t Uint64_len_impl(Uint64Type *this) { return 8; }
+uint8_t Uint64_get_impl(Uint64Type *this, uint32_t index, bool *existing) {
+  uint8_t ret = {0};
+  mol2_cursor_res_t res = mol2_slice_by_offset2(&this->cur, 1 * index, 1);
+  if (res.errno != MOL2_OK) {
+    *existing = false;
+    return ret;
+  } else {
+    *existing = true;
+  }
+  ret = convert_to_Uint8(&res.cur);
+  return ret;
+}
+struct Int64Type make_Int64(mol2_cursor_t *cur) {
+  Int64Type ret;
+  ret.cur = *cur;
+  ret.t = GetInt64VTable();
+  return ret;
+}
+struct Int64VTable *GetInt64VTable(void) {
+  static Int64VTable s_vtable;
+  static int inited = 0;
+  if (inited) return &s_vtable;
+  s_vtable.len = Int64_len_impl;
+  s_vtable.get = Int64_get_impl;
+  return &s_vtable;
+}
+uint32_t Int64_len_impl(Int64Type *this) { return 8; }
+uint8_t Int64_get_impl(Int64Type *this, uint32_t index, bool *existing) {
+  uint8_t ret = {0};
+  mol2_cursor_res_t res = mol2_slice_by_offset2(&this->cur, 1 * index, 1);
+  if (res.errno != MOL2_OK) {
+    *existing = false;
+    return ret;
+  } else {
+    *existing = true;
+  }
+  ret = convert_to_Uint8(&res.cur);
+  return ret;
+}
+struct TableBType make_TableB(mol2_cursor_t *cur) {
+  TableBType ret;
+  ret.cur = *cur;
+  ret.t = GetTableBVTable();
+  return ret;
+}
+struct TableBVTable *GetTableBVTable(void) {
+  static TableBVTable s_vtable;
+  static int inited = 0;
+  if (inited) return &s_vtable;
+  s_vtable.f1 = TableB_get_f1_impl;
+  s_vtable.f2 = TableB_get_f2_impl;
+  s_vtable.f3 = TableB_get_f3_impl;
+  s_vtable.f4 = TableB_get_f4_impl;
+  s_vtable.f5 = TableB_get_f5_impl;
+  s_vtable.f6 = TableB_get_f6_impl;
+  s_vtable.f7 = TableB_get_f7_impl;
+  s_vtable.f8 = TableB_get_f8_impl;
+  return &s_vtable;
+}
+uint8_t TableB_get_f1_impl(TableBType *this) {
+  uint8_t ret;
+  mol2_cursor_t ret2 = mol2_table_slice_by_index(&this->cur, 0);
+  ret = convert_to_Uint8(&ret2);
+  return ret;
+}
+int8_t TableB_get_f2_impl(TableBType *this) {
+  int8_t ret;
+  mol2_cursor_t ret2 = mol2_table_slice_by_index(&this->cur, 1);
+  ret = convert_to_Int8(&ret2);
+  return ret;
+}
+uint16_t TableB_get_f3_impl(TableBType *this) {
+  uint16_t ret;
+  mol2_cursor_t ret2 = mol2_table_slice_by_index(&this->cur, 2);
+  ret = convert_to_Uint16(&ret2);
+  return ret;
+}
+int16_t TableB_get_f4_impl(TableBType *this) {
+  int16_t ret;
+  mol2_cursor_t ret2 = mol2_table_slice_by_index(&this->cur, 3);
+  ret = convert_to_Int16(&ret2);
+  return ret;
+}
+uint32_t TableB_get_f5_impl(TableBType *this) {
+  uint32_t ret;
+  mol2_cursor_t ret2 = mol2_table_slice_by_index(&this->cur, 4);
+  ret = convert_to_Uint32(&ret2);
+  return ret;
+}
+int32_t TableB_get_f6_impl(TableBType *this) {
+  int32_t ret;
+  mol2_cursor_t ret2 = mol2_table_slice_by_index(&this->cur, 5);
+  ret = convert_to_Int32(&ret2);
+  return ret;
+}
+uint64_t TableB_get_f7_impl(TableBType *this) {
+  uint64_t ret;
+  mol2_cursor_t ret2 = mol2_table_slice_by_index(&this->cur, 6);
+  ret = convert_to_Uint64(&ret2);
+  return ret;
+}
+int64_t TableB_get_f8_impl(TableBType *this) {
+  int64_t ret;
+  mol2_cursor_t ret2 = mol2_table_slice_by_index(&this->cur, 7);
+  ret = convert_to_Int64(&ret2);
+  return ret;
+}
 struct AllInOneType make_AllInOne(mol2_cursor_t *cur) {
   AllInOneType ret;
   ret.cur = *cur;
@@ -3727,6 +4160,7 @@ struct AllInOneVTable *GetAllInOneVTable(void) {
   s_vtable.f71 = AllInOne_get_f71_impl;
   s_vtable.f72 = AllInOne_get_f72_impl;
   s_vtable.f73 = AllInOne_get_f73_impl;
+  s_vtable.f74 = AllInOne_get_f74_impl;
   return &s_vtable;
 }
 uint8_t AllInOne_get_f0_impl(AllInOneType *this) {
@@ -4227,6 +4661,13 @@ TableAType AllInOne_get_f73_impl(AllInOneType *this) {
   mol2_cursor_t cur = mol2_table_slice_by_index(&this->cur, 73);
   ret.cur = cur;
   ret.t = GetTableAVTable();
+  return ret;
+}
+TableBType AllInOne_get_f74_impl(AllInOneType *this) {
+  TableBType ret;
+  mol2_cursor_t cur = mol2_table_slice_by_index(&this->cur, 74);
+  ret.cur = cur;
+  ret.t = GetTableBVTable();
   return ret;
 }
 #endif  // MOLECULEC_C2_DECLARATION_ONLY

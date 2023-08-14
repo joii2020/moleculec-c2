@@ -332,12 +332,12 @@ impl Mol2Vec for Byte7Vec {
     }
 }
 impl Mol2Vec for BytesVec {
-    type RetType = Vec<u8>;
+    type RetType = molecule2::Cursor;
     fn mol_len(&self) -> Result<usize, TypesCheckErr> {
         Ok(self.len()?)
     }
     fn mol_get(&self, index: usize) -> Result<Self::RetType, TypesCheckErr> {
-        Ok(self.get(index)?.try_into()?)
+        Ok(self.get(index)?)
     }
 }
 impl Mol2Vec for WordsVec {

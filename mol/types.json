@@ -696,6 +696,92 @@
       ]
     },
     {
+      "type": "array",
+      "name": "Uint8",
+      "item": "byte",
+      "item_count": 1
+    },
+    {
+      "type": "array",
+      "name": "Int8",
+      "item": "byte",
+      "item_count": 1
+    },
+    {
+      "type": "array",
+      "name": "Uint16",
+      "item": "byte",
+      "item_count": 2
+    },
+    {
+      "type": "array",
+      "name": "Int16",
+      "item": "byte",
+      "item_count": 2
+    },
+    {
+      "type": "array",
+      "name": "Uint32",
+      "item": "byte",
+      "item_count": 4
+    },
+    {
+      "type": "array",
+      "name": "Int32",
+      "item": "byte",
+      "item_count": 4
+    },
+    {
+      "type": "array",
+      "name": "Uint64",
+      "item": "byte",
+      "item_count": 8
+    },
+    {
+      "type": "array",
+      "name": "Int64",
+      "item": "byte",
+      "item_count": 8
+    },
+    {
+      "type": "table",
+      "name": "TableB",
+      "fields": [
+        {
+          "name": "f1",
+          "type": "Uint8"
+        },
+        {
+          "name": "f2",
+          "type": "Int8"
+        },
+        {
+          "name": "f3",
+          "type": "Uint16"
+        },
+        {
+          "name": "f4",
+          "type": "Int16"
+        },
+        {
+          "name": "f5",
+          "type": "Uint32"
+        },
+        {
+          "name": "f6",
+          "type": "Int32"
+        },
+        {
+          "name": "f7",
+          "type": "Uint64"
+        },
+        {
+          "name": "f8",
+          "type": "Int64"
+        }
+      ]
+    },
+    {
       "type": "table",
       "name": "AllInOne",
       "fields": [
@@ -994,6 +1080,10 @@
         {
           "name": "f73",
           "type": "TableA"
+        },
+        {
+          "name": "f74",
+          "type": "TableB"
         }
       ]
     }

@@ -47,7 +47,7 @@ pub fn check_mol(d1: &types_api::AllInOne, d2: &types_api2::AllInOne) -> ResChec
     f39(&d1.f39(), &d2.f39()?.into())?;
     f40(&d1.f40(), &d2.f40()?.into())?;
 
-    f41(&d1.f41(), &d2.f41()?.try_into().unwrap())?;
+    f41(&d1.f41(), &d2.f41()?)?;
     f42(&d1.f42(), &d2.f42()?.into())?;
     f43(&d1.f43(), &d2.f43()?.into())?;
     f44(&d1.f44(), &d2.f44()?.into())?;
@@ -87,6 +87,7 @@ pub fn check_mol(d1: &types_api::AllInOne, d2: &types_api2::AllInOne) -> ResChec
 
     f72(&d1.f72(), &d2.f72()?)?;
     f73(&d1.f73(), &d2.f73()?)?;
+    f74(&d1.f74(), &d2.f74()?)?;
 
     Ok(())
 }
@@ -314,8 +315,10 @@ fn f40(d1: &types_api::StructP, d2: &types_api2::StructP) -> ResCheckErr {
 
     Ok(())
 }
-fn f41(d1: &types_api::Bytes, d2: &Vec<u8>) -> ResCheckErr {
-    TypesCheckErr::check_mol_data(d1, d2)
+fn f41(d1: &types_api::Bytes, d2: &molecule2::Cursor) -> ResCheckErr {
+    d2.verify_fixed_size(d1.len())?;
+    let d2: Vec<u8> = d2.clone().try_into().unwrap();
+    TypesCheckErr::check_mol_data(d1, &d2)
 }
 fn f42(d1: &types_api::Words, d2: &types_api2::Words) -> ResCheckErr {
     TypesCheckErr::check_lenght(d1.mol_len()?, d2.len()?)?;
@@ -373,25 +376,30 @@ fn f49(d1: &types_api::WordsVec, d2: &types_api2::WordsVec) -> ResCheckErr {
     }
     Ok(())
 }
-fn f50(_d1: &types_api::Table0, _d2: &types_api2::Table0) -> ResCheckErr {
+fn f50(_d1: &types_api::Table0, d2: &types_api2::Table0) -> ResCheckErr {
+    assert!(!d2.cursor.table_has_extra_fields(0)?);
     Ok(())
 }
 fn f51(d1: &types_api::Table1, d2: &types_api2::Table1) -> ResCheckErr {
+    assert!(d2.cursor.table_has_extra_fields(0)?);
     f0(&d1.f1(), &d2.f1()?.into())?;
     Ok(())
 }
 fn f52(d1: &types_api::Table2, d2: &types_api2::Table2) -> ResCheckErr {
+    assert!(d2.cursor.table_has_extra_fields(1)?);
     f0(&d1.f1(), &d2.f1()?.into())?;
     f17(&d1.f2(), &d2.f2()?.into())?;
     Ok(())
 }
 fn f53(d1: &types_api::Table3, d2: &types_api2::Table3) -> ResCheckErr {
+    assert!(d2.cursor.table_has_extra_fields(2)?);
     f0(&d1.f1(), &d2.f1()?.into())?;
     f17(&d1.f2(), &d2.f2()?.into())?;
     f28(&d1.f3(), &d2.f3()?.into())?;
     Ok(())
 }
 fn f54(d1: &types_api::Table4, d2: &types_api2::Table4) -> ResCheckErr {
+    assert!(d2.cursor.table_has_extra_fields(3)?);
     f0(&d1.f1(), &d2.f1()?.into())?;
     f17(&d1.f2(), &d2.f2()?.into())?;
     f28(&d1.f3(), &d2.f3()?.into())?;
@@ -399,6 +407,7 @@ fn f54(d1: &types_api::Table4, d2: &types_api2::Table4) -> ResCheckErr {
     Ok(())
 }
 fn f55(d1: &types_api::Table5, d2: &types_api2::Table5) -> ResCheckErr {
+    assert!(d2.cursor.table_has_extra_fields(4)?);
     f0(&d1.f1(), &d2.f1()?.into())?;
     f17(&d1.f2(), &d2.f2()?.into())?;
     f28(&d1.f3(), &d2.f3()?.into())?;
@@ -407,6 +416,7 @@ fn f55(d1: &types_api::Table5, d2: &types_api2::Table5) -> ResCheckErr {
     Ok(())
 }
 fn f56(d1: &types_api::Table6, d2: &types_api2::Table6) -> ResCheckErr {
+    assert!(d2.cursor.table_has_extra_fields(5)?);
     f0(&d1.f1(), &d2.f1()?.into())?;
     f17(&d1.f2(), &d2.f2()?.into())?;
     f28(&d1.f3(), &d2.f3()?.into())?;
@@ -479,7 +489,7 @@ fn f60(d1: &Option<types_api::StructP>, d2: &Option<types_api2::StructP>) -> Res
 
     Ok(())
 }
-fn f61(d1: &Option<types_api::Bytes>, d2: &Option<Vec<u8>>) -> ResCheckErr {
+fn f61(d1: &Option<types_api::Bytes>, d2: &Option<molecule2::Cursor>) -> ResCheckErr {
     if d1.is_some() != d2.is_some() {
         return Err(TypesCheckErr::Opt(format!(
             "different option: {:?}  {:?}",
@@ -676,5 +686,41 @@ fn f73(d1: &types_api::TableA, d2: &types_api2::TableA) -> ResCheckErr {
     f51(&d1.f5(), &d2.f5()?)?;
     f61(&d1.f6().to_opt(), &d2.f6()?.map(|f| f.try_into().unwrap()))?;
     f72(&d1.f7(), &d2.f7()?)?;
+    Ok(())
+}
+
+fn f74(d1: &types_api::TableB, d2: &types_api2::TableB) -> ResCheckErr {
+    f0(&d1.f1().nth0(), &d2.f1()?.into())?;
+    f0(&d1.f2().nth0(), &(d2.f2()? as u8).into())?;
+
+    TypesCheckErr::check_1_data(
+        &u16::from_le_bytes(d1.f3().raw_data().to_vec().try_into().unwrap()),
+        &d2.f3()?,
+    )?;
+    TypesCheckErr::check_1_data(
+        &i16::from_le_bytes(d1.f4().raw_data().to_vec().try_into().unwrap()),
+        &d2.f4()?,
+    )?;
+
+    TypesCheckErr::check_1_data(
+        &u32::from_le_bytes(d1.f5().raw_data().to_vec().try_into().unwrap()),
+        &d2.f5()?,
+    )?;
+
+    TypesCheckErr::check_1_data(
+        &i32::from_le_bytes(d1.f6().raw_data().to_vec().try_into().unwrap()),
+        &d2.f6()?,
+    )?;
+
+    TypesCheckErr::check_1_data(
+        &u64::from_le_bytes(d1.f7().raw_data().to_vec().try_into().unwrap()),
+        &d2.f7()?,
+    )?;
+
+    TypesCheckErr::check_1_data(
+        &i64::from_le_bytes(d1.f8().raw_data().to_vec().try_into().unwrap()),
+        &d2.f8()?,
+    )?;
+
     Ok(())
 }

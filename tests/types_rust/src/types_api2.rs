@@ -1587,6 +1587,221 @@ impl TableA {
         cur.try_into()
     }
 }
+pub struct Uint8 {
+    pub cursor: Cursor,
+}
+impl From<Cursor> for Uint8 {
+    fn from(cursor: Cursor) -> Self {
+        Self { cursor }
+    }
+}
+impl Uint8 {
+    pub fn len(&self) -> usize {
+        1
+    }
+}
+impl Uint8 {
+    pub fn get(&self, index: usize) -> Result<u8, Error> {
+        let cur = self.cursor.slice_by_offset(1 * index, 1)?;
+        cur.try_into()
+    }
+}
+pub struct Int8 {
+    pub cursor: Cursor,
+}
+impl From<Cursor> for Int8 {
+    fn from(cursor: Cursor) -> Self {
+        Self { cursor }
+    }
+}
+impl Int8 {
+    pub fn len(&self) -> usize {
+        1
+    }
+}
+impl Int8 {
+    pub fn get(&self, index: usize) -> Result<u8, Error> {
+        let cur = self.cursor.slice_by_offset(1 * index, 1)?;
+        cur.try_into()
+    }
+}
+pub struct Uint16 {
+    pub cursor: Cursor,
+}
+impl From<Cursor> for Uint16 {
+    fn from(cursor: Cursor) -> Self {
+        Self { cursor }
+    }
+}
+impl Uint16 {
+    pub fn len(&self) -> usize {
+        2
+    }
+}
+impl Uint16 {
+    pub fn get(&self, index: usize) -> Result<u8, Error> {
+        let cur = self.cursor.slice_by_offset(1 * index, 1)?;
+        cur.try_into()
+    }
+}
+pub struct Int16 {
+    pub cursor: Cursor,
+}
+impl From<Cursor> for Int16 {
+    fn from(cursor: Cursor) -> Self {
+        Self { cursor }
+    }
+}
+impl Int16 {
+    pub fn len(&self) -> usize {
+        2
+    }
+}
+impl Int16 {
+    pub fn get(&self, index: usize) -> Result<u8, Error> {
+        let cur = self.cursor.slice_by_offset(1 * index, 1)?;
+        cur.try_into()
+    }
+}
+pub struct Uint32 {
+    pub cursor: Cursor,
+}
+impl From<Cursor> for Uint32 {
+    fn from(cursor: Cursor) -> Self {
+        Self { cursor }
+    }
+}
+impl Uint32 {
+    pub fn len(&self) -> usize {
+        4
+    }
+}
+impl Uint32 {
+    pub fn get(&self, index: usize) -> Result<u8, Error> {
+        let cur = self.cursor.slice_by_offset(1 * index, 1)?;
+        cur.try_into()
+    }
+}
+pub struct Int32 {
+    pub cursor: Cursor,
+}
+impl From<Cursor> for Int32 {
+    fn from(cursor: Cursor) -> Self {
+        Self { cursor }
+    }
+}
+impl Int32 {
+    pub fn len(&self) -> usize {
+        4
+    }
+}
+impl Int32 {
+    pub fn get(&self, index: usize) -> Result<u8, Error> {
+        let cur = self.cursor.slice_by_offset(1 * index, 1)?;
+        cur.try_into()
+    }
+}
+pub struct Uint64 {
+    pub cursor: Cursor,
+}
+impl From<Cursor> for Uint64 {
+    fn from(cursor: Cursor) -> Self {
+        Self { cursor }
+    }
+}
+impl Uint64 {
+    pub fn len(&self) -> usize {
+        8
+    }
+}
+impl Uint64 {
+    pub fn get(&self, index: usize) -> Result<u8, Error> {
+        let cur = self.cursor.slice_by_offset(1 * index, 1)?;
+        cur.try_into()
+    }
+}
+pub struct Int64 {
+    pub cursor: Cursor,
+}
+impl From<Cursor> for Int64 {
+    fn from(cursor: Cursor) -> Self {
+        Self { cursor }
+    }
+}
+impl Int64 {
+    pub fn len(&self) -> usize {
+        8
+    }
+}
+impl Int64 {
+    pub fn get(&self, index: usize) -> Result<u8, Error> {
+        let cur = self.cursor.slice_by_offset(1 * index, 1)?;
+        cur.try_into()
+    }
+}
+pub struct TableB {
+    pub cursor: Cursor,
+}
+impl From<Cursor> for TableB {
+    fn from(cursor: Cursor) -> Self {
+        TableB { cursor }
+    }
+}
+impl TableB {
+    pub fn f1(&self) -> Result<u8, Error> {
+        let cur = self.cursor.table_slice_by_index(0)?;
+        cur.try_into()
+    }
+}
+
+impl TableB {
+    pub fn f2(&self) -> Result<i8, Error> {
+        let cur = self.cursor.table_slice_by_index(1)?;
+        cur.try_into()
+    }
+}
+
+impl TableB {
+    pub fn f3(&self) -> Result<u16, Error> {
+        let cur = self.cursor.table_slice_by_index(2)?;
+        cur.try_into()
+    }
+}
+
+impl TableB {
+    pub fn f4(&self) -> Result<i16, Error> {
+        let cur = self.cursor.table_slice_by_index(3)?;
+        cur.try_into()
+    }
+}
+
+impl TableB {
+    pub fn f5(&self) -> Result<u32, Error> {
+        let cur = self.cursor.table_slice_by_index(4)?;
+        cur.try_into()
+    }
+}
+
+impl TableB {
+    pub fn f6(&self) -> Result<i32, Error> {
+        let cur = self.cursor.table_slice_by_index(5)?;
+        cur.try_into()
+    }
+}
+
+impl TableB {
+    pub fn f7(&self) -> Result<u64, Error> {
+        let cur = self.cursor.table_slice_by_index(6)?;
+        cur.try_into()
+    }
+}
+
+impl TableB {
+    pub fn f8(&self) -> Result<i64, Error> {
+        let cur = self.cursor.table_slice_by_index(7)?;
+        cur.try_into()
+    }
+}
 pub struct AllInOne {
     pub cursor: Cursor,
 }
@@ -2154,6 +2369,13 @@ impl AllInOne {
 impl AllInOne {
     pub fn f73(&self) -> Result<TableA, Error> {
         let cur = self.cursor.table_slice_by_index(73)?;
+        Ok(cur.into())
+    }
+}
+
+impl AllInOne {
+    pub fn f74(&self) -> Result<TableB, Error> {
+        let cur = self.cursor.table_slice_by_index(74)?;
         Ok(cur.into())
     }
 }
