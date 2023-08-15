@@ -508,6 +508,8 @@ impl TypesAll {
             .check(&all_in_one.f74()?)
             .map_err(|f| f.to(format!("f74:{}", f.as_str())))?;
 
+        types_api::AllInOneReader::verify(&data, true).expect("check data");
+
         check_mol(
             &types_api::AllInOne::new_unchecked(molecule::bytes::Bytes::from(data.to_vec())),
             &all_in_one,
